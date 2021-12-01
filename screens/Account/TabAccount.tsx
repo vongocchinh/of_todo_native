@@ -10,6 +10,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { styles } from "./style";
 import { DetailIcon } from "../../components/Detailicon";
 import { SocialIcon } from "./SocialIcon";
+import { UserData } from './../../utils/Data';
 
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>["name"];
@@ -26,18 +27,18 @@ export default function TabAccount() {
         <View style={styles.container_avatar}>
           <ImageComponent
             styles={styles.circleView}
-            url="https://duckienad.com/wp-content/uploads/2020/04/son-tung-mtp-512x384.jpg"
+            url={UserData.url}
           />
         </View>
         <View style={styles.container_title}>
-          <Text style={styles.title_text}>Ken Hennigton</Text>
+          <Text style={styles.title_text}>{UserData.name}</Text>
         </View>
         <View style={styles.container_title}>
-          <Text style={styles.title_text_1}>UX/UI Designer</Text>
+          <Text style={styles.title_text_1}>{UserData.description}</Text>
         </View>
         <View style={styles.container_title}>
-          <TabBarIcon  name="map-marker" color="#2148C0" />{" "}
-          <Text style={styles.title_text_2}>Australia</Text>
+          <TabBarIcon  name="map-marker" color="#2148C0" />
+          <Text style={styles.title_text_2}>{UserData.location}</Text>
         </View>
         <View
           style={styles.separator}
@@ -45,9 +46,9 @@ export default function TabAccount() {
           darkColor="rgba(255,255,255,0.1)"
         />
         <View style={styles.containerNumber}>
-          <NumberComponent number={456} title="follow" />
-          <NumberComponent number={478} title="follow" />
-          <NumberComponent number={689} title="follow" />
+          <NumberComponent number={UserData.Follower} title="follower" />
+          <NumberComponent number={UserData.Following} title="following" />
+          <NumberComponent number={UserData.Follower} title="post" />
         </View>
         <View style={styles.buttonContainer}>
           <ButtonComponent
@@ -73,10 +74,7 @@ export default function TabAccount() {
         <View style={styles.container_text_detail}>
           <DetailText
             title="About Me"
-            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-          Lorem Ipsum has been the industry's standard dummy text ever since the
-          1500s, when an unknown printer took a galley of type and scrambled it to
-          make a type specimen book. "
+            description={UserData.about}
           />
         </View>
         <View

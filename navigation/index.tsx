@@ -5,11 +5,7 @@
  */
 import { FontAwesome } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import {
-  NavigationContainer,
-  DefaultTheme,
-  DarkTheme,
-} from "@react-navigation/native";
+
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import { ColorSchemeName, Pressable } from "react-native";
@@ -20,26 +16,17 @@ import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import TabAccount from "../screens/Account/TabAccount";
 import TabOneScreen from "../screens/TabOneScreen";
-import TabTwoScreen from "../screens/TabTwoScreen";
+import Setting from './../screens/Setting/Setting';
 import {
   RootStackParamList,
   RootTabParamList,
   RootTabScreenProps,
 } from "../types";
-import LinkingConfiguration from "./LinkingConfiguration";
+import Home from "../screens/Home/Home";
 
-export default function Navigation({
-  colorScheme,
-}: {
-  colorScheme: ColorSchemeName;
-}) {
+export default function Navigation() {
   return (
-    <NavigationContainer
-      linking={LinkingConfiguration}
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-    >
       <RootNavigator />
-    </NavigationContainer>
   );
 }
 
@@ -75,7 +62,7 @@ function RootNavigator() {
  */
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
-function BottomTabNavigator() {
+export function BottomTabNavigator() {
   const colorScheme = useColorScheme();
 
   return (
@@ -83,14 +70,14 @@ function BottomTabNavigator() {
       initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
+        headerShown:false,
         tabBarStyle:{
-          paddingHorizontal:5
         }
       }}
     >
       <BottomTab.Screen
         name="Home"
-        component={TabOneScreen}
+        component={Home}
         options={({ navigation }: RootTabScreenProps<"Home">) => ({
           title: "Home",
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
@@ -120,6 +107,16 @@ function BottomTabNavigator() {
             <TabBarIcon name="user" color={color} />
           ),
         }}
+      />
+      <BottomTab.Screen
+      name="Setting"
+      component={Setting}
+      options={{
+        title:"Setting",
+        tabBarIcon:({color})=>(
+          <TabBarIcon name="level-down" color={color} />
+        )
+      }}
       />
     </BottomTab.Navigator>
   );
